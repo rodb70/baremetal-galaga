@@ -12,8 +12,7 @@
 #include "mylib.h"
 
 enum GBAState state;
-extern unsigned short *videoBuffer;
-extern const unsigned char fontdata_6x8[12288];
+extern const uint8_t fontdata_6x8[ 12288 ];
 int lives;
 int currentState;
 int numBees = 6;
@@ -34,7 +33,7 @@ struct bee
     int row, col;
     int oldRow, oldCol;
     int alive;
-} bees[6];
+} bees[60];
 
 struct dragonfly
 {
@@ -320,6 +319,7 @@ void moveBullets( void )
             }
         }
     }
+
     for( int i = 0; i < numBullets; i++ )
     {
         if( bullets[ i ].alive )

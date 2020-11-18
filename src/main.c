@@ -14,10 +14,12 @@ int main(void)
     char startKey[] = "Press Start";
     char gameOver[] = "Game Over";
     string nextStage = "Next Stage Loading...";
+
     hardware_video_init();
     char buffer[41];
     initialize();
     resetBullet();
+
     while( 1 )
     {
         waitForVblank();
@@ -38,8 +40,9 @@ int main(void)
 
         case GAMEOVER:
             drawImage3( 0, 0, 240, 160, space );
-            drawString( 120, 100, gameOver, WHITE );
-            delay( 30 );
+            drawString( 100, 120, gameOver, WHITE );
+            waitForVblank();
+            delay( 1000 );
             oldLives = 3;
             state = START;
             break;
@@ -101,11 +104,13 @@ int main(void)
                 updateCollision();
                 sprintf( buffer, "Lives: %d", getLives() );
                 drawString( 190, 3, buffer, RED );
-                if( enemiesDead() )
+
+                if( enemiesDead())
                 {
                     fillScreen( BLACK );
                     drawString( 50, 80, nextStage, WHITE );
-                    delay( 25 );
+                    waitForVblank();
+                    delay( 1000 );
                     state = GAME;
                     setCurrentState( 1 );
                 }
@@ -114,6 +119,7 @@ int main(void)
                     state = GAMEOVER;
                     setCurrentState( -1 );
                 }
+
                 if( getLives() < oldLives )
                 {
                     setCurrentState( 1 );
